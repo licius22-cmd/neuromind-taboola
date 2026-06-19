@@ -15,9 +15,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com/" crossorigin="">
   <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@500;600;700;800&family=Sora:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
-  <!-- jQuery (usado pelos scripts de delay) -->
-  <script src="js/jquery.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
-
   <script>!function (i, n) { i._plt = i._plt || (n && n.timeOrigin ? n.timeOrigin + n.now() : Date.now()) }(window, performance);</script>
 
   <!-- ══════════════════════════════════════════════════════════════════════════════
@@ -792,6 +789,16 @@
 <!-- END VTURB EMBED -->
       </div>
 
+      <script>
+  var delaySeconds = 2751;
+  var player = document.querySelector("vturb-smartplayer");
+  player.addEventListener("player:ready", function() {
+    player.displayHiddenElements(delaySeconds, [".esconder"], {
+      persist: true
+    });
+  });
+</script>
+
       <!-- ══════════════════════════════════════════════════════════════════════
            SEÇÃO ESCONDIDA - aparece após delay do VTURB
            ══════════════════════════════════════════════════════════════════════ -->
@@ -1112,60 +1119,8 @@
        SCRIPT: delay para mostrar oferta após VTURB + scroll suave
        Substitua 2751 pelo delay desejado (em segundos)
        ════════════════════════════════════════════════════════════════════════════ -->
-  <script>
-    $(document).ready(function () {
-      var delaySeconds = 2751;
-      var player = document.querySelector("vturb-smartplayer");
-
-      if (!player) return;
-
-      player.addEventListener("player:ready", function () {
-        player.displayHiddenElements(delaySeconds, [".esconder"], { persist: true });
-
-        var initialized = false;
-
-        var checkInterval = setInterval(function () {
-          var $target = $(".esconder:visible").first();
-
-          if ($target.length && !initialized) {
-            initialized = true;
-            clearInterval(checkInterval);
-
-            var $scrollTarget = $("#scrolldown");
-            if ($scrollTarget.length) {
-              $('html, body').animate({
-                scrollTop: $scrollTarget.offset().top
-              }, 800);
-            }
-
-            $target.find(".countdown").each(function () {
-              var $countdownEl = $(this);
-              var desiredValue = parseInt($countdownEl.text().trim().match(/\d+/)[0], 10);
-
-              var decrementTimer = setInterval(function () {
-                if (desiredValue > 48) {
-                  desiredValue = Math.max(desiredValue - 6, 48);
-                  $countdownEl.text(desiredValue);
-                } else {
-                  clearInterval(decrementTimer);
-                }
-              }, 8000);
-            });
-          }
-        }, 500);
-      });
-    });
-  </script>
-
-  <!-- UTM TRANSFER (propaga UTMs para os links de checkout) -->
-  <script src="js/utm-transfer.js"></script>
-
-  <!-- ════════════════════════════════════════════════════════════════════════════
-       🛒 SCRIPT DE TRACKING DO CHECKOUT
-       (Script da BuyGoods removido — cole aqui o tracking do novo checkout do
-        NeuroMind Pro, se houver)
-       ════════════════════════════════════════════════════════════════════════════ -->
-
+  
+ 
 
 
 
